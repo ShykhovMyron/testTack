@@ -12,6 +12,7 @@ public class MobilePhoneNumberValidator {
         for (String phoneNumber : phoneNumbers) {
             boolean isValid;
             String country = null;
+            String originalPhoneNumber = phoneNumber;
             phoneNumber = phoneNumber.replaceAll("[+() -]", "");
             if (phoneNumber.startsWith("370")) {
                 country = "LT";
@@ -22,6 +23,11 @@ public class MobilePhoneNumberValidator {
             } else if (phoneNumber.startsWith("372")) {
                 country = "EE";
                 isValid = phoneNumber.charAt(3) == '5' && phoneNumber.substring(3).length() == 7;
+            } else if (phoneNumber.startsWith("32")) {
+                country = "BE";
+                isValid = (phoneNumber.startsWith("456", 2) || phoneNumber.startsWith("47", 2)
+                        || phoneNumber.startsWith("48", 2) || phoneNumber.startsWith("49", 2))
+                        && phoneNumber.substring(2).length() == 9;
             } else {
                 isValid = false;
             }
@@ -30,9 +36,9 @@ public class MobilePhoneNumberValidator {
                 if (!result.validPhonesByCountry.containsKey(country)) {
                     result.validPhonesByCountry.put(country, new ArrayList<>());
                 }
-                result.validPhonesByCountry.get(country).add(phoneNumbers.get(0));
+                result.validPhonesByCountry.get(country).add(originalPhoneNumber);
             } else {
-                result.invalidPhones.add(phoneNumber);
+                result.invalidPhones.add(originalPhoneNumber);
             }
         }
 
