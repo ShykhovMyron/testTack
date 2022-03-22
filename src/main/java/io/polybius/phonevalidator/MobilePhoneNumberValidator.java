@@ -22,7 +22,8 @@ public class MobilePhoneNumberValidator {
                 isValid = phoneNumber.charAt(3) == '2' && phoneNumber.substring(3).length() == 8;
             } else if (phoneNumber.startsWith("372")) {
                 country = "EE";
-                isValid = phoneNumber.charAt(3) == '5' && phoneNumber.substring(3).length() == 7;
+                isValid = phoneNumber.charAt(3) == '5' && (phoneNumber.substring(3).length() == 7 ||
+                        phoneNumber.substring(3).length() == 8);
             } else if (phoneNumber.startsWith("32")) {
                 country = "BE";
                 isValid = (phoneNumber.startsWith("456", 2) || phoneNumber.startsWith("47", 2)
