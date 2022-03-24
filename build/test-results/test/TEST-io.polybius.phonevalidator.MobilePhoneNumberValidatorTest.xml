@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2022-03-24T12:03:03" hostname="DESKTOP-1H85HB3" time="0.009">
+<testsuite name="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2022-03-24T14:58:36" hostname="DESKTOP-1H85HB3" time="0.009">
   <properties/>
-  <testcase name="validateLithuaniaOnlyNumbers" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.002"/>
+  <testcase name="validateLithuaniaOnlyNumbers" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
   <testcase name="validateDoublePlus" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.0"/>
-  <testcase name="validateEstonia" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.0"/>
+  <testcase name="validateEstonia" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
   <testcase name="validateEstoniaOnlyNumbers" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
   <testcase name="validateLatviaOnlyNumbers" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.0"/>
   <testcase name="validateLatvia" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
   <testcase name="validateBelgium" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.0"/>
   <testcase name="validateInvalidNumbers" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.0"/>
-  <testcase name="validateBelgiumOnlyNumbers" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.0"/>
+  <testcase name="validateBelgiumOnlyNumbers" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
   <testcase name="validateLithuania" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.0"/>
   <testcase name="validateInvalidCharacter" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
   <testcase name="validateNoClosingBrace" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>

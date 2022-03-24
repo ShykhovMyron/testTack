@@ -17,7 +17,7 @@ public class MobilePhoneNumberValidator {
             String validPhoneNumber = getValidPhoneNumber(phoneNumber);
             String country;
             if (validPhoneNumber.length() == numberLength
-                    && (country = getNumberCountry(validPhoneNumber)) != null) {
+                    && !(country = getNumberCountry(validPhoneNumber)).isEmpty()) {
                 result.validPhonesByCountry.putIfAbsent(country, new ArrayList<>());
                 result.validPhonesByCountry.get(country).add(phoneNumber);
             } else {
@@ -29,7 +29,7 @@ public class MobilePhoneNumberValidator {
     }
 
     private String getNumberCountry(String validNumber) {
-        String country = null;
+        String country = "";
         if (checkNumber(validNumber, "370", "6")) {
             country = "LT";
         }
@@ -60,7 +60,6 @@ public class MobilePhoneNumberValidator {
 
     private String getValidPhoneNumber(String number) {
 
-        //убераю " " и "-"
         number = number.replaceAll("[- ]", "");
 
         number = number.replaceAll("^[+]", "");
