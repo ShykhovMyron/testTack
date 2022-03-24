@@ -5,56 +5,60 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MobilePhoneNumberValidator {
+    private final static int numberLength = 11;
 
-  public ValidationResultDto validate(List<String> phoneNumbers) {
-    ValidationResultDto result = new ValidationResultDto();
-    result.invalidPhones = new ArrayList<>();
-    result.validPhonesByCountry = new HashMap<>();
-    for (int i = 0; i < phoneNumbers.size(); i++) {
-      String phoneNumber = phoneNumbers.get(i);
-      boolean isValid;
-      String country = null;
-      if(phoneNumber.startsWith("370")||phoneNumber.startsWith("+370")) {
-        country = "LT";
-        phoneNumber = phoneNumber.replaceAll("\\)", "").replaceAll("\\(", "").replaceAll(" ", "").replaceAll("-", "");
-        if (phoneNumber.startsWith("370")) {
-          isValid = phoneNumber.charAt(3) == '6' && phoneNumber.substring(3).length() == 8;
-        }else{
-          isValid = phoneNumber.charAt(4) == '6' && phoneNumber.substring(4).length() == 8;
-        }
-      } else if (phoneNumber.startsWith("+371") || phoneNumber.startsWith("371")) {
-        country = "LV";
-        if (phoneNumber.startsWith("370")) {
-          isValid = phoneNumber.charAt(3) == '2' && phoneNumber.substring(3).length() == 8;
-        }
-        else {
-          isValid = phoneNumber.charAt(4) == '2' && phoneNumber.substring(4).length() == 8;
-        }
-      } else if (phoneNumber.startsWith("372")) {
-        country = "EE";
-        phoneNumber = phoneNumber.replaceAll("\\)", "").replaceAll("\\(", "").replaceAll(" ", "").replaceAll("-", "");
-        if (phoneNumber.startsWith("+372")) {
-          isValid = phoneNumber.charAt(4) == '5' && (phoneNumber.substring(4).length() == 7
-              || phoneNumber.substring(4).length() == 8);
-        } else {
-          isValid = phoneNumber.charAt(3) == '5' && phoneNumber.substring(3).length() == 7;
-        }
-      } else {
-        isValid = false;
-      }
+    public ValidationResultDto validate(List<String> phoneNumbers) {
+        ValidationResultDto result = new ValidationResultDto();
+        result.invalidPhones = new ArrayList<>();
+        result.validPhonesByCountry = new HashMap<>();
 
-      if (isValid) {
-        if (!result.validPhonesByCountry.containsKey(country)) {
-          result.validPhonesByCountry.put(country, new ArrayList<>());
+        for (String phoneNumber : phoneNumbers) {
+            String validPhoneNumber = getValidPhoneNumber(phoneNumber);
+            String country;
+            if (validPhoneNumber.length() == numberLength
+                    && !(country = getNumberCountry(validPhoneNumber)).isEmpty()) {
+                result.validPhonesByCountry.putIfAbsent(country, new ArrayList<>());
+                result.validPhonesByCountry.get(country).add(phoneNumber);
+            } else {
+                result.invalidPhones.add(phoneNumber);
+            }
         }
 
-        result.validPhonesByCountry.get(country).add(phoneNumbers.get(0));
-      } else {
-        result.invalidPhones.add(phoneNumbers.get(i));
-      }
+        return result;
+    }
+
+    private String getNumberCountry(String validNumber) {
+        String country = null;
+        if (checkNumber(validNumber, "370", "6")) {
+            country = "LT";
+        }
+        if (checkNumber(validNumber, "371", "2")) {
+            country = "LV";
+        }
+        if (checkNumber(validNumber, "372", "5")) {
+            country = "EE";
+        }
+        if (checkNumber(validNumber, "32", "456", "47", "48", "49")) {
+            country = "BE";
+        }
+        return country;
+    }
+
+    private boolean checkNumber(String number, String callingCode, String... initialDigits) {
+        if (number.startsWith(callingCode)) {
+            int beginPhoneNumber = callingCode.length();
+
+            for (String initialDigit : initialDigits) {
+                if (number.startsWith(initialDigit, beginPhoneNumber)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 
-    return result;
-  }
+    private String getValidPhoneNumber(String number) {
+        return number;
+    }
 }
