@@ -6,7 +6,6 @@ import java.util.List;
 
 public class MobilePhoneNumberValidator {
     private final static int numberLength = 11;
-    private final static String[] allowedLetters = {"-", " "};
 
     public ValidationResultDto validate(List<String> phoneNumbers) {
         ValidationResultDto result = new ValidationResultDto();
@@ -60,9 +59,7 @@ public class MobilePhoneNumberValidator {
 
     private String getValidPhoneNumber(String number) {
 
-        number = number.replaceAll("[- ]", "");
-
-        number = number.replaceAll("^[+]", "");
+        number = number.replaceAll("^[+]", "").replaceAll("[- ]", "");
         if (number.contains("(") && number.contains(")")) {
             number = number.replace(")", "").replace("(", "");
         }
