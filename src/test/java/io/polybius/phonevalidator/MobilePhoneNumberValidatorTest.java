@@ -6,19 +6,89 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
+
 public class MobilePhoneNumberValidatorTest {
 
-  private MobilePhoneNumberValidator validator = new MobilePhoneNumberValidator();
+    private MobilePhoneNumberValidator validator = new MobilePhoneNumberValidator();
 
-  @Test
-  public void validate() {
-    ValidationResultDto result = validator.validate(List.of("+37061234567"));
-    assertEquals(List.of("+37061234567"), result.validPhonesByCountry.get("LT"));
+    @Test
+    public void validateLithuania() {
+        String country = "LT";
+        List<String> numbers = List.of(
+                "+37061234567", "+370-612-34-567", "+370 612 34 567", "+370(6)1234567", "37061234567"
+        );
+        assertEquals(numbers, getNumbersByCountry(country, numbers));
+    }
 
-    result = validator.validate(List.of("+37091234567"));
-    assertEquals(List.of("+37091234567"), result.invalidPhones);
+    @Test
+    public void validateLatvia() {
+        String country = "LV";
+        List<String> numbers = List.of(
+                "+37121234567", "+371-212-34-567", "+371 212 34 567", "+371(2)1234567", "37221234567"
+        );
+        assertEquals(numbers, getNumbersByCountry(country, numbers));
+    }
 
-    result = validator.validate(List.of("+3706123456"));
-    assertEquals(List.of("+3706123456"), result.invalidPhones);
-  }
+    @Test
+    public void validateEstonia() {
+        String country = "EE";
+        List<String> numbers = List.of(
+                "+37251234567", "+372-512-34-567", "+372 512 34 567", "+372(5)1234567", "37251234567"
+        );
+        assertEquals(numbers, getNumbersByCountry(country, numbers));
+    }
+
+    @Test
+    public void validateBelgium() {
+        String country = "BE";
+        List<String> numbers = List.of(
+                "+32456234567", "+324-712-34-567", "+324 812 34 567", "+324(9)1234567", "32456234567"
+        );
+        assertEquals(numbers, getNumbersByCountry(country, numbers));
+    }
+
+    @Test
+    public void validateDoublePlus() {
+        List<String> numbers = List.of(
+                "++32456234567"
+        );
+        assertEquals(numbers, validator.validate(numbers).invalidPhones);
+    }
+
+    @Test
+    public void validateInvalidNumber() {
+        List<String> numbers = List.of(
+                "+304-712-34-567","+3706123456"
+        );
+        assertEquals(numbers, validator.validate(numbers).invalidPhones);
+    }
+
+    @Test
+    public void validateDoubleSpace() {
+        List<String> numbers = List.of(
+                "+324  812 34 567"
+        );
+        assertEquals(numbers, validator.validate(numbers).invalidPhones);
+    }
+
+    @Test
+    public void validateNoClosingBrace() {
+        List<String> numbers = List.of(
+                "+324(91234567"
+        );
+        assertEquals(numbers, validator.validate(numbers).invalidPhones);
+    }
+
+    @Test
+    public void validateInvalidCharacter() {
+        List<String> numbers = List.of(
+                "~32456234567"
+        );
+        assertEquals(numbers, validator.validate(numbers).invalidPhones);
+    }
+
+    private List<String> getNumbersByCountry(String country, List<String> numbers) {
+        ValidationResultDto result = validator.validate(numbers);
+        return result.validPhonesByCountry.get(country);
+    }
 }

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MobilePhoneNumberValidator {
+
   public ValidationResultDto validate(List<String> phoneNumbers) {
     ValidationResultDto result = new ValidationResultDto();
     result.invalidPhones = new ArrayList<>();
