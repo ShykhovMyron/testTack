@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MobilePhoneNumberValidator {
-    private final static int numberLength = 11;
+    private final static int phoneNumberLength = 11;
 
     public ValidationResultDto validate(List<String> phoneNumbers) {
         ValidationResultDto result = new ValidationResultDto();
@@ -15,7 +15,7 @@ public class MobilePhoneNumberValidator {
         for (String phoneNumber : phoneNumbers) {
             String validPhoneNumber = getValidPhoneNumber(phoneNumber);
             String country;
-            if (validPhoneNumber.length() == numberLength
+            if (validPhoneNumber.length() == phoneNumberLength
                     && !(country = getNumberCountry(validPhoneNumber)).isEmpty()) {
                 result.validPhonesByCountry.putIfAbsent(country, new ArrayList<>());
                 result.validPhonesByCountry.get(country).add(phoneNumber);
@@ -58,7 +58,6 @@ public class MobilePhoneNumberValidator {
     }
 
     private String getValidPhoneNumber(String number) {
-
         number = number.replaceAll("^[+]", "").replaceAll("[- ]", "");
         if (number.contains("(") && number.contains(")")) {
             number = number.replace(")", "").replace("(", "");
