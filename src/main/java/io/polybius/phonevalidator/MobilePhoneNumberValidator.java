@@ -6,6 +6,7 @@ import java.util.List;
 
 public class MobilePhoneNumberValidator {
     private final static int numberLength = 11;
+    private final static String[] allowedLetters = {"-", " "};
 
     public ValidationResultDto validate(List<String> phoneNumbers) {
         ValidationResultDto result = new ValidationResultDto();
@@ -16,7 +17,7 @@ public class MobilePhoneNumberValidator {
             String validPhoneNumber = getValidPhoneNumber(phoneNumber);
             String country;
             if (validPhoneNumber.length() == numberLength
-                    && !(country = getNumberCountry(validPhoneNumber)).isEmpty()) {
+                    && (country = getNumberCountry(validPhoneNumber)) != null) {
                 result.validPhonesByCountry.putIfAbsent(country, new ArrayList<>());
                 result.validPhonesByCountry.get(country).add(phoneNumber);
             } else {
@@ -57,8 +58,15 @@ public class MobilePhoneNumberValidator {
         return false;
     }
 
-
     private String getValidPhoneNumber(String number) {
+
+        //убераю " " и "-"
+        number = number.replaceAll("[- ]", "");
+
+        number = number.replaceAll("^[+]", "");
+        if (number.contains("(") && number.contains(")")) {
+            number = number.replace(")", "").replace("(", "");
+        }
         return number;
     }
 }

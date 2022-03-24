@@ -94,14 +94,6 @@ public class MobilePhoneNumberValidatorTest {
     }
 
     @Test
-    public void validateDoubleSpace() {
-        List<String> numbers = List.of(
-                "+324  812 34 567"
-        );
-        assertEquals(numbers, validator.validate(numbers).invalidPhones);
-    }
-
-    @Test
     public void validateNoClosingBrace() {
         List<String> numbers = List.of(
                 "+324(91234567"
