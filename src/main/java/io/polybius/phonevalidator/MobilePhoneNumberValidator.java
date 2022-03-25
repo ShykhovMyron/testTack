@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MobilePhoneNumberValidator {
-    private final static int phoneNumberLength = 11;
 
     public ValidationResultDto validate(List<String> phoneNumbers) {
         ValidationResultDto result = new ValidationResultDto();
@@ -15,8 +14,7 @@ public class MobilePhoneNumberValidator {
         for (String phoneNumber : phoneNumbers) {
             String validPhoneNumber = getValidPhoneNumber(phoneNumber);
             String country;
-            if (validPhoneNumber.length() == phoneNumberLength
-                    && !(country = getNumberCountry(validPhoneNumber)).isEmpty()) {
+            if (!(country = getPhoneNumberCountry(validPhoneNumber)).isEmpty()) {
                 result.validPhonesByCountry.putIfAbsent(country, new ArrayList<>());
                 result.validPhonesByCountry.get(country).add(phoneNumber);
             } else {
@@ -27,41 +25,49 @@ public class MobilePhoneNumberValidator {
         return result;
     }
 
-    private String getNumberCountry(String validNumber) {
+    private String getPhoneNumberCountry(String phoneNumber) {
         String country = "";
-        if (checkPhoneNumber(validNumber, "370", "6")) {
-            country = "LT";
-        }
-        if (checkPhoneNumber(validNumber, "371", "2")) {
-            country = "LV";
-        }
-        if (checkPhoneNumber(validNumber, "372", "5")) {
-            country = "EE";
-        }
-        if (checkPhoneNumber(validNumber, "32", "456", "47", "48", "49")) {
-            country = "BE";
+        for (PhoneNumbers phoneNumberInfo : PhoneNumbers.values()) {
+            if (isPhoneNumberCountryValid(phoneNumberInfo, phoneNumber)) {
+                country = phoneNumberInfo.getCountry();
+                break;
+            }
         }
         return country;
     }
 
-    private boolean checkPhoneNumber(String number, String countryCode, String... initialDigits) {
-        if (number.startsWith(countryCode)) {
-            int beginPhoneNumber = countryCode.length();
+    private boolean isPhoneNumberCountryValid(PhoneNumbers phoneNumberInfo, String phoneNumber) {
+        return phoneNumber.startsWith(phoneNumberInfo.getCountryCode()) &&
+                isPhoneNumberLengthValid(phoneNumberInfo, phoneNumber.length()) &&
+                isPhoneNumberContainStartNumbers(phoneNumberInfo, phoneNumber);
+    }
 
-            for (String initialDigit : initialDigits) {//initialDigits
-                if (number.startsWith(initialDigit, beginPhoneNumber)) {
-                    return true;
-                }
+    private boolean isPhoneNumberContainStartNumbers(PhoneNumbers phoneNumberInfo, String phoneNumber) {
+        for (String startNumber : phoneNumberInfo.getStartNumbers()) {
+            if (phoneNumber.startsWith(startNumber, phoneNumberInfo.getCountryCode().length())) {
+                return true;
             }
         }
         return false;
     }
 
+    private boolean isPhoneNumberLengthValid(PhoneNumbers phoneNumberInfo, int phoneNumberLength) {
+        return phoneNumberInfo.getNumberLengths()
+                .contains(phoneNumberLength - phoneNumberInfo.getCountryCode().length());
+    }
+
+
     private String getValidPhoneNumber(String number) {
         number = number.replaceAll("^[+]", "").replaceAll("[- ]", "");
-        if (number.contains("(") && number.contains(")")) { //)(
-            number = number.replace(")", "").replace("(", "");
+
+        int indexBraceBegin = number.indexOf("(");
+        int indexBraceEnd = number.indexOf(")");
+        while (indexBraceEnd > indexBraceBegin && (indexBraceBegin != -1)) {
+            number = number.replace("(", "").replace(")", "");
+            indexBraceBegin = number.indexOf("(");
+            indexBraceEnd = number.indexOf(")");
         }
+
         return number;
     }
 }

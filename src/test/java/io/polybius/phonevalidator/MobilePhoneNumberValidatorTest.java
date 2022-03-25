@@ -50,7 +50,7 @@ public class MobilePhoneNumberValidatorTest {
             "EE,+37251234567,+372-512-34-567",
             "EE,+372 512 34 56,3725123456",
             "BE,+324 812 34 567,+32456234567",
-            "BE,+324(9)1234567,+324-712-34-567",
+            "BE,+324(9)1234(567),+324-712-34-567",
     })
     public void validPhoneNumbersTwoParametersTest(String country, String phoneNumber1, String phoneNumber2) {
         validTest(country, phoneNumber1, phoneNumber2);
@@ -82,7 +82,7 @@ public class MobilePhoneNumberValidatorTest {
     public void validAndInvalidPhoneNumbersTest(
             String country, String validPhoneNumber, String invalidPhoneNumber
     ) {
-        validAndInvalidTest(country,validPhoneNumber,invalidPhoneNumber);
+        validAndInvalidTest(country, validPhoneNumber, invalidPhoneNumber);
     }
 
     private void validAndInvalidTest(String country, String validPhoneNumber, String invalidPhoneNumber) {
@@ -90,7 +90,7 @@ public class MobilePhoneNumberValidatorTest {
         List<String> expectedValid = List.of(validPhoneNumber);
         List<String> expectedInvalid = List.of(invalidPhoneNumber);
         //Act
-        ValidationResultDto actual = validator.validate(List.of(validPhoneNumber,invalidPhoneNumber));
+        ValidationResultDto actual = validator.validate(List.of(validPhoneNumber, invalidPhoneNumber));
         //Assert
         assertEquals(expectedValid, actual.validPhonesByCountry.get(country));
         assertEquals(expectedInvalid, actual.invalidPhones);

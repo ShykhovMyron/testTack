@@ -36,6 +36,7 @@ public enum PhoneNumbers {
     public List<String> getStartNumbers() {
         return startNumbers;
     }
+
     public List<Integer> getNumberLengths() {
         return numberLengths;
     }
