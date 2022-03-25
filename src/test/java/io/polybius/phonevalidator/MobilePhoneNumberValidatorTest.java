@@ -72,6 +72,30 @@ public class MobilePhoneNumberValidatorTest {
         invalidTest(invalidPhoneNumber);
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            "LT,+37061234567,++370-612-34-567",
+            "LV,+371-212-34-567,~371 212 34 567",
+            "EE,+37251234567,+37)(2-512-34-567",
+            "BE,+324 812 34 567,3256234567",
+    })
+    public void validAndInvalidPhoneNumbersTest(
+            String country, String validPhoneNumber, String invalidPhoneNumber
+    ) {
+        validAndInvalidTest(country,validPhoneNumber,invalidPhoneNumber);
+    }
+
+    private void validAndInvalidTest(String country, String validPhoneNumber, String invalidPhoneNumber) {
+        //Arrange
+        List<String> expectedValid = List.of(validPhoneNumber);
+        List<String> expectedInvalid = List.of(invalidPhoneNumber);
+        //Act
+        ValidationResultDto actual = validator.validate(List.of(validPhoneNumber,invalidPhoneNumber));
+        //Assert
+        assertEquals(expectedValid, actual.validPhonesByCountry.get(country));
+        assertEquals(expectedInvalid, actual.invalidPhones);
+    }
+
     private void invalidTest(String... invalidPhoneNumbers) {
         //Arrange
         List<String> expected = List.of(invalidPhoneNumbers);
