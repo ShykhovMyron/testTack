@@ -29,26 +29,26 @@ public class MobilePhoneNumberValidator {
 
     private String getNumberCountry(String validNumber) {
         String country = "";
-        if (checkNumber(validNumber, "370", "6")) {
+        if (checkPhoneNumber(validNumber, "370", "6")) {
             country = "LT";
         }
-        if (checkNumber(validNumber, "371", "2")) {
+        if (checkPhoneNumber(validNumber, "371", "2")) {
             country = "LV";
         }
-        if (checkNumber(validNumber, "372", "5")) {
+        if (checkPhoneNumber(validNumber, "372", "5")) {
             country = "EE";
         }
-        if (checkNumber(validNumber, "32", "456", "47", "48", "49")) {
+        if (checkPhoneNumber(validNumber, "32", "456", "47", "48", "49")) {
             country = "BE";
         }
         return country;
     }
 
-    private boolean checkNumber(String number, String callingCode, String... initialDigits) {
-        if (number.startsWith(callingCode)) {
-            int beginPhoneNumber = callingCode.length();
+    private boolean checkPhoneNumber(String number, String countryCode, String... initialDigits) {
+        if (number.startsWith(countryCode)) {
+            int beginPhoneNumber = countryCode.length();
 
-            for (String initialDigit : initialDigits) {
+            for (String initialDigit : initialDigits) {//initialDigits
                 if (number.startsWith(initialDigit, beginPhoneNumber)) {
                     return true;
                 }
@@ -59,7 +59,7 @@ public class MobilePhoneNumberValidator {
 
     private String getValidPhoneNumber(String number) {
         number = number.replaceAll("^[+]", "").replaceAll("[- ]", "");
-        if (number.contains("(") && number.contains(")")) {
+        if (number.contains("(") && number.contains(")")) { //)(
             number = number.replace(")", "").replace("(", "");
         }
         return number;
