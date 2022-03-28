@@ -1,9 +1,11 @@
 package io.polybius.phonevalidator;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -52,7 +54,8 @@ public class MobilePhoneNumberValidatorTest {
             "BE,+324 812 34 567,+32456234567",
             "BE,+324(9)1234(567),+324-712-34-567",
     })
-    public void validPhoneNumbersTwoParametersTest(String country, String phoneNumber1, String phoneNumber2) {
+    public void validPhoneNumbersTwoParametersTest(
+            String country, String phoneNumber1, String phoneNumber2) {
         validTest(country, phoneNumber1, phoneNumber2);
     }
 
@@ -72,25 +75,23 @@ public class MobilePhoneNumberValidatorTest {
         invalidTest(invalidPhoneNumber);
     }
 
-    @ParameterizedTest
-    @CsvSource({
-            "LT,+37061234567,++370-612-34-567",
-            "LV,+371-212-34-567,~371 212 34 567",
-            "EE,+37251234567,+37)(2-512-34-567",
-            "BE,+324 812 34 567,3256234567",
-    })
-    public void validAndInvalidPhoneNumbersTest(
-            String country, String validPhoneNumber, String invalidPhoneNumber
-    ) {
-        validAndInvalidTest(country, validPhoneNumber, invalidPhoneNumber);
-    }
-
-    private void validAndInvalidTest(String country, String validPhoneNumber, String invalidPhoneNumber) {
+    @Test
+    public void validAndInvalidPhoneNumbersTest() {
         //Arrange
-        List<String> expectedValid = List.of(validPhoneNumber);
-        List<String> expectedInvalid = List.of(invalidPhoneNumber);
+        String country = "BE";
+        String validPhoneNumber1 = "+324 812 34 567";
+        String validPhoneNumber2 = "+32456234567";
+        String validPhoneNumber3 = "+324(9)1234(567)";
+        String invalidPhoneNumberNoClosableBrake = "+324(91234(567)";
+        String invalidPhoneNumberToMuchNumbers = "+324(9)1234(5967)";
+        List<String> expectedValid = List.of(validPhoneNumber1, validPhoneNumber2, validPhoneNumber3);
+        List<String> expectedInvalid = List
+                .of(invalidPhoneNumberNoClosableBrake, invalidPhoneNumberToMuchNumbers);
+        List<String> validAndInvalidList = new ArrayList<>(expectedValid) {{
+            addAll(expectedInvalid);
+        }};
         //Act
-        ValidationResultDto actual = validator.validate(List.of(validPhoneNumber, invalidPhoneNumber));
+        ValidationResultDto actual = validator.validate(validAndInvalidList);
         //Assert
         assertEquals(expectedValid, actual.validPhonesByCountry.get(country));
         assertEquals(expectedInvalid, actual.invalidPhones);

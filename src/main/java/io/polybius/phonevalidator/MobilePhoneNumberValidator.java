@@ -12,7 +12,7 @@ public class MobilePhoneNumberValidator {
         result.validPhonesByCountry = new HashMap<>();
 
         for (String phoneNumber : phoneNumbers) {
-            String validPhoneNumber = getValidPhoneNumber(phoneNumber);
+            String validPhoneNumber = removeAllAllowedCharacters(phoneNumber);
             String country;
             if (!(country = getPhoneNumberCountry(validPhoneNumber)).isEmpty()) {
                 result.validPhonesByCountry.putIfAbsent(country, new ArrayList<>());
@@ -25,15 +25,28 @@ public class MobilePhoneNumberValidator {
         return result;
     }
 
+    private String removeAllAllowedCharacters(String number) {
+        number = number.replaceAll("^[+]", "").replaceAll("[- ]", "");
+
+        int indexBraceBegin = number.indexOf("(");
+        int indexBraceEnd = number.indexOf(")");
+        while (indexBraceEnd > indexBraceBegin && indexBraceBegin != -1) {
+            StringBuilder builder = new StringBuilder(number);
+            number = builder.deleteCharAt(indexBraceBegin).deleteCharAt(indexBraceEnd-1).toString();
+            indexBraceBegin = number.indexOf("(");
+            indexBraceEnd = number.indexOf(")");
+        }
+
+        return number;
+    }
+
     private String getPhoneNumberCountry(String phoneNumber) {
-        String country = "";
         for (PhoneNumbers phoneNumberInfo : PhoneNumbers.values()) {
             if (isPhoneNumberCountryValid(phoneNumberInfo, phoneNumber)) {
-                country = phoneNumberInfo.getCountry();
-                break;
+                return phoneNumberInfo.getCountry();
             }
         }
-        return country;
+        return "";
     }
 
     private boolean isPhoneNumberCountryValid(PhoneNumbers phoneNumberInfo, String phoneNumber) {
@@ -56,18 +69,4 @@ public class MobilePhoneNumberValidator {
                 .contains(phoneNumberLength - phoneNumberInfo.getCountryCode().length());
     }
 
-
-    private String getValidPhoneNumber(String number) {
-        number = number.replaceAll("^[+]", "").replaceAll("[- ]", "");
-
-        int indexBraceBegin = number.indexOf("(");
-        int indexBraceEnd = number.indexOf(")");
-        while (indexBraceEnd > indexBraceBegin && (indexBraceBegin != -1)) {
-            number = number.replace("(", "").replace(")", "");
-            indexBraceBegin = number.indexOf("(");
-            indexBraceEnd = number.indexOf(")");
-        }
-
-        return number;
-    }
 }

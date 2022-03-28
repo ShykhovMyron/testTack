@@ -1,47 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" tests="41" skipped="0" failures="0" errors="0" timestamp="2022-03-25T16:30:33" hostname="DESKTOP-1H85HB3" time="0.194">
+<testsuite name="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-03-28T09:24:26" hostname="DESKTOP-1H85HB3" time="0.035">
   <properties/>
-  <testcase name="validAndInvalidPhoneNumbersTest(String, String, String)[1]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.049"/>
-  <testcase name="validAndInvalidPhoneNumbersTest(String, String, String)[2]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.004"/>
-  <testcase name="validAndInvalidPhoneNumbersTest(String, String, String)[3]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.002"/>
-  <testcase name="validAndInvalidPhoneNumbersTest(String, String, String)[4]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
-  <testcase name="validPhoneNumbersOneParameterTest(String, String)[1]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.003"/>
-  <testcase name="validPhoneNumbersOneParameterTest(String, String)[2]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
-  <testcase name="validPhoneNumbersOneParameterTest(String, String)[3]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.002"/>
-  <testcase name="validPhoneNumbersOneParameterTest(String, String)[4]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
-  <testcase name="validPhoneNumbersOneParameterTest(String, String)[5]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
-  <testcase name="validPhoneNumbersOneParameterTest(String, String)[6]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
-  <testcase name="validPhoneNumbersOneParameterTest(String, String)[7]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.002"/>
-  <testcase name="validPhoneNumbersOneParameterTest(String, String)[8]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
-  <testcase name="validPhoneNumbersOneParameterTest(String, String)[9]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
-  <testcase name="validPhoneNumbersOneParameterTest(String, String)[10]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.0"/>
-  <testcase name="validPhoneNumbersOneParameterTest(String, String)[11]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.003"/>
-  <testcase name="validPhoneNumbersOneParameterTest(String, String)[12]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
-  <testcase name="validPhoneNumbersOneParameterTest(String, String)[13]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
-  <testcase name="validPhoneNumbersOneParameterTest(String, String)[14]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.0"/>
-  <testcase name="validPhoneNumbersOneParameterTest(String, String)[15]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
-  <testcase name="validPhoneNumbersOneParameterTest(String, String)[16]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.002"/>
-  <testcase name="validPhoneNumbersOneParameterTest(String, String)[17]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
-  <testcase name="validPhoneNumbersOneParameterTest(String, String)[18]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
-  <testcase name="validPhoneNumbersOneParameterTest(String, String)[19]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
-  <testcase name="validPhoneNumbersOneParameterTest(String, String)[20]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
-  <testcase name="validPhoneNumbersTwoParametersTest(String, String, String)[1]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
-  <testcase name="validPhoneNumbersTwoParametersTest(String, String, String)[2]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
-  <testcase name="validPhoneNumbersTwoParametersTest(String, String, String)[3]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
-  <testcase name="validPhoneNumbersTwoParametersTest(String, String, String)[4]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
-  <testcase name="validPhoneNumbersTwoParametersTest(String, String, String)[5]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
-  <testcase name="validPhoneNumbersTwoParametersTest(String, String, String)[6]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
-  <testcase name="validPhoneNumbersTwoParametersTest(String, String, String)[7]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.003"/>
-  <testcase name="validPhoneNumbersTwoParametersTest(String, String, String)[8]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
-  <testcase name="invalidPhoneNumberTest(String)[1]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.002"/>
-  <testcase name="invalidPhoneNumberTest(String)[2]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
-  <testcase name="invalidPhoneNumberTest(String)[3]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
-  <testcase name="invalidPhoneNumberTest(String)[4]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
-  <testcase name="invalidPhoneNumberTest(String)[5]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
-  <testcase name="invalidPhoneNumberTest(String)[6]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.003"/>
-  <testcase name="invalidPhoneNumberTest(String)[7]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
-  <testcase name="invalidPhoneNumberTest(String)[8]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.001"/>
-  <testcase name="invalidPhoneNumberTest(String)[9]" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.002"/>
+  <testcase name="validAndInvalidPhoneNumbersTest()" classname="io.polybius.phonevalidator.MobilePhoneNumberValidatorTest" time="0.035"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
